@@ -1,0 +1,23 @@
+GRAMATICA DEL LENGUAJE DE REGLAS
+
+<regla> ::= <identificador> <operador> <numero>
+
+<operador> ::= ">"
+             | "<"
+             | ">="
+             | "<="
+
+<identificador> ::= "TEMP_ALTA"
+                  | "LLUVIA_INTENSA"
+                  | "VIENTO_FUERTE"
+                  | "BATERIA_BAJA"
+
+<numero> ::= numero entero o decimal, opcionalmente con signo negativo
+
+
+EJEMPLOS VALIDOS
+
+TEMP_ALTA > 35
+LLUVIA_INTENSA > 50
+VIENTO_FUERTE > 40
+BATERIA_BAJA < 20
