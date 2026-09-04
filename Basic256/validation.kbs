@@ -1,0 +1,113 @@
+open 1, "../csv/datos.csv"
+open 2, "../csv/datos_normalizados.csv"
+
+# Leer y copiar encabezado
+line$ = readline(1)
+line$ = trim(line$)
+writeline 2, line$
+
+while not eof(1)
+
+    line$ = readline(1)
+    line$ = trim(line$)
+
+    # Separar la fila en columnas
+    data$ = explode(line$, ",")
+
+    # Comprobar cantidad de columnas
+    if data$[?] = 6 then
+
+        valid = 1
+
+        # Comprobar campos faltantes
+        if data$[0] = "" then
+            valid = 0
+        end if
+
+        if data$[1] = "" then
+            valid = 0
+        end if
+
+        if data$[2] = "" then
+            valid = 0
+        end if
+
+        if data$[3] = "" then
+            valid = 0
+        end if
+
+        if data$[4] = "" then
+            valid = 0
+        end if
+
+        if data$[5] = "" then
+            valid = 0
+        end if
+
+        # Comprobar que los campos numericos sean numeros
+        if not isnumeric(data$[2]) then
+            valid = 0
+        end if
+
+        if not isnumeric(data$[3]) then
+            valid = 0
+        end if
+
+        if not isnumeric(data$[4]) then
+            valid = 0
+        end if
+
+        if not isnumeric(data$[5]) then
+            valid = 0
+        end if
+
+        # Validar temperatura
+        if valid = 1 then
+            if data$[2] < -90 or data$[2] > 60 then
+                valid = 0
+            end if
+        end if
+
+        # Validar precipitacion
+        if valid = 1 then
+            if data$[3] < 0 then
+                valid = 0
+            end if
+        end if
+
+        # Validar viento
+        if valid = 1 then
+            if data$[4] < 0 then
+                valid = 0
+            end if
+        end if
+
+        # Validar bateria
+        if valid = 1 then
+            if data$[5] < 0 or data$[5] > 100 then
+                valid = 0
+            end if
+        end if
+
+        # Guardar solamente filas validas
+        if valid = 1 then
+            writeline 2, line$
+            print "Fila valida: " + line$
+        else
+            print "Fila descartada: dato invalido"
+        end if
+
+    else
+
+        print "Fila descartada: cantidad incorrecta de campos"
+
+    end if
+
+end while
+
+close 1
+close 2
+
+print "Procesamiento BASIC-256 completado"
+
+end
